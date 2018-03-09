@@ -8,39 +8,6 @@
 #include "Ini.h"
 using namespace std;
 
-// // USER_API parameter
-// extern CThostFtdcTraderApi* pTradeUserApi;
-
-// // configure parameter
-// extern char gTradeFrontAddr[];               //front address
-// extern TThostFtdcBrokerIDType gBrokerID;				    //broker id
-// extern TThostFtdcInvestorIDType gInvestorID;				//investor id
-// extern TThostFtdcPasswordType gInvestorPassword;			//investor password
-
-// // configure used in orderinserting
-// TThostFtdcInstrumentIDType gTraderInstrumentID;		//instrument id
-// TThostFtdcPriceType gLimitPrice; //limit price
-// TThostFtdcPriceType gStopPrice; //stop price
-// int gTradeType;// trade request type;
-// // int gVolume; //volume
-// // TThostFtdcDirectionType gTradeDirection;//Trading direction
-
-// // state flag
-// extern bool isFrontConnected;
-// extern bool isConfirm;
-
-// // request id
-// extern int iRequestID;
-
-// // session parameters 
-// TThostFtdcFrontIDType frontID; 		//front id
-// TThostFtdcSessionIDType	sessionID;		//session id
-// TThostFtdcOrderRefType	gOrderRef;		//order reference
-// TThostFtdcOrderRefType	exeOrderRef;	//execute order reference 
-// TThostFtdcOrderRefType	forquoteRef;	//for quote reference
-// TThostFtdcOrderRefType	quoteRef;		//quote reference
-
-// 
 bool IsFlowControl(int iResult)
 {
 	return ((iResult == -2) || (iResult == -3));
@@ -539,17 +506,6 @@ CTraderSpi::CTraderSpi(char* filePath)
 
 
 }
-
-// // initrialize api
-// void CTraderSpi::InitApi()
-// {
-// 	pTradeUserApi = CThostFtdcTraderApi::CreateFtdcTraderApi();
-//     pTradeUserApi->RegisterSpi((CThostFtdcTraderSpi*) this);
-//     pTradeUserApi->SubscribePublicTopic(THOST_TERT_QUICK);
-//     pTradeUserApi->SubscribePrivateTopic(THOST_TERT_QUICK);
-//     pTradeUserApi->RegisterFront(gTradeFrontAddr);
-//     pTradeUserApi->Init();
-// }
 
 // join api
 void CTraderSpi::JoinApi()

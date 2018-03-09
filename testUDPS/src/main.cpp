@@ -72,7 +72,7 @@ int main(int argc,char* argv[])
 	struct sockaddr_in addr;  
 	char msg[MAX_MSG_SIZE];
 
-	// prepare UDP
+	// prepare UDP and bind
 	sockfd = socket(AF_INET, SOCK_DGRAM, 0);  
 	if (sockfd < 0)  
 	{  
@@ -89,7 +89,7 @@ int main(int argc,char* argv[])
 	  fprintf(stderr, "bind fail\n");  
 	  exit(EXIT_FAILURE);  
 	}  
-	puts("bind success");  
+	puts("bind success");
 
    	//TraderSpi
     CTraderSpi *pTradeUserSpi = new CTraderSpi(filePath);
@@ -99,17 +99,20 @@ int main(int argc,char* argv[])
     // waiting for confirm
     while(!pTradeUserSpi->isConfirm){}
 
-    // waiting for UDPC
+    // UDPC communicate
     while(pTradeUserSpi->isConfirm){
 
     	bzero(msg, MAX_MSG_SIZE); 
 		
 		socklen_t st = (socklen_t) addrlen;// add 
 
+		// receive data from client
 		n = recvfrom(sockfd, msg, sizeof(msg), 0, (struct sockaddr *)(&addr), &st);// addrlen to st
 
 		msg[strlen(msg)-1] = '\0';// add
 		fprintf(stdout, "Recevie message from client is *%s*\n", msg);
+
+		// sent OrderInsert request according to config file
 		pTradeUserSpi->ReqOrderInsertBy(pTradeUserSpi->ReadOrderFieldIni(msg));
 
 		// waitin for return message
